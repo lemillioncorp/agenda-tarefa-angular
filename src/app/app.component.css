@@ -1,0 +1,4 @@
+/*Deixar as Letras em Mauscula com o CSS*/
+li{
+    text-transform: uppercase;
+}

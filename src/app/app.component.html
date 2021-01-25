@@ -1,0 +1,51 @@
+<h1 class="titulo texto-ao-centro">{{ titulo }}</h1>
+
+
+<ul *ngIf="modo=='lista'">
+  <p *ngIf="todos.length==0" class="texto-ao-centro"><small >Não existe nenhuma Tarefa de Momento!</small></p>
+  <li *ngFor="let todo of todos">
+    {{ todo.titulo }} &nbsp;|&nbsp; {{ todo.execucao }} &nbsp;
+    <button (click)="remover(todo)"><i class="far fa-trash-alt"></i></button>
+    <button *ngIf="!todo.estado" (click)="marcarConcluido(todo)"> <i class="far fa-check-circle"></i></button>
+    <button *ngIf="todo.estado" (click)="marcarNaoConcluido(todo)"><i class="fas fa-check-circle"></i></button>
+
+  </li>
+</ul>
+
+<div *ngIf="modo=='novo'" id="modal">
+<form [formGroup]="form">
+
+                                      <h1 class="texto-ao-centro">Nova Tarefa</h1>
+
+    <label for="">Nome da Tarefa</label>
+    <input type="text" placeholder="Tarefa" maxlength="100" formControlName="titulo">
+
+    <p class="texto-ao-centro">
+      <small *ngIf="form.controls.titulo.invalid && !form.controls.titulo.pristine" class="danger">Este campo deve conter entre 3 a 100 Caractereres</small>
+  </p>
+
+      <label for="">Data de Execução da Tarefa</label>
+      <input type="datetime-local" placeholder="Data Execução da Terefa" id="tempoExe"  formControlName="execucao">
+
+    <p class="texto-ao-centro">
+      <small *ngIf="form.controls.execucao.invalid && !form.controls.execucao.pristine" class="danger">Este campo deve conter entre 2020 até Anos Futuros</small>
+    </p>
+
+  <p class="texto-ao-centro">
+    <button class="button texto-ao-centro" [disabled]="form.invalid" (click)="adicionar()"><i class="far fa-save"></i> &nbsp;Salvar</button>
+  </p>
+
+
+</form>
+</div>
+<p class="texto-ao-centro">
+<button (click)="changeModo('novo')" *ngIf="modo=='lista'" class="button"> <i class="fas fa-plus-circle"></i> &nbsp;NOVA TAREFA</button>
+</p>
+<p class="texto-ao-centro">
+<button (click)="changeModo('lista')" *ngIf="modo=='novo'" class="button"> <i class="fas fa-times"></i> &nbsp;&nbsp;CANCELAR</button>
+</p>
+
+<script type="text/javascript">
+  let tempoExecucao = window.document.getElementsById('tempoExe');
+
+</script>
